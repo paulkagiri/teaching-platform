@@ -7,18 +7,26 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
+  IconButton,
+  Tooltip,
+  Box,
 } from "@mui/material";
+import { CheckCircle, AddCircleOutline } from "@mui/icons-material";
 import { GET_BOOKS } from "../graphql/queries";
 import { Book } from "../types";
 
 interface BookSearchProps {
   addToReadingList: (book: Book) => void;
+  isBookInReadingList: (book: Book) => boolean;
 }
 
 /**
  * Component to search for books and add them to the reading list.
  */
-const BookSearch: React.FC<BookSearchProps> = ({ addToReadingList }) => {
+const BookSearch: React.FC<BookSearchProps> = ({
+  addToReadingList,
+  isBookInReadingList,
+}) => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [inputValue, setInputValue] = useState<string>("");
   const { loading, error, data } = useQuery(GET_BOOKS);
@@ -48,6 +56,19 @@ const BookSearch: React.FC<BookSearchProps> = ({ addToReadingList }) => {
               <Avatar src={option.coverPhotoURL} alt={option.title} />
             </ListItemAvatar>
             <ListItemText primary={option.title} secondary={option.author} />
+            <Box sx={{ ml: 2 }}>
+              {isBookInReadingList(option) ? (
+                <Tooltip title="Already in Reading List">
+                  <CheckCircle color="action" />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Add to Reading List">
+                  <IconButton edge="end" aria-label="add">
+                    <AddCircleOutline />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </Box>
           </ListItem>
         )}
         renderInput={(params) => (

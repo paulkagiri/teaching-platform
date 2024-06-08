@@ -10,8 +10,12 @@ import { Book } from "./types";
  * Main application component.
  */
 const App: React.FC = () => {
-  const { readingList, addToReadingList, removeFromReadingList } =
-    useReadingList();
+  const {
+    readingList,
+    addToReadingList,
+    removeFromReadingList,
+    isBookInReadingList,
+  } = useReadingList();
   const { snackbarOpen, snackbarMessage, showSnackbar, handleSnackbarClose } =
     useSnackbar();
 
@@ -28,7 +32,10 @@ const App: React.FC = () => {
   return (
     <Container>
       <Box sx={{ mt: 4, mb: 4 }}>
-        <BookSearch addToReadingList={handleAddToReadingList} />
+        <BookSearch
+          addToReadingList={handleAddToReadingList}
+          isBookInReadingList={isBookInReadingList}
+        />
         {readingList.length > 0 && (
           <Box sx={{ mt: 4 }}>
             <ReadingList
