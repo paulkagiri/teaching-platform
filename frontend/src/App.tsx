@@ -10,12 +10,18 @@ import { Book } from "./types";
  * Main application component.
  */
 const App: React.FC = () => {
-  const { readingList, addToReadingList } = useReadingList();
+  const { readingList, addToReadingList, removeFromReadingList } =
+    useReadingList();
   const { snackbarOpen, snackbarMessage, showSnackbar, handleSnackbarClose } =
     useSnackbar();
 
   const handleAddToReadingList = (book: Book) => {
     const message = addToReadingList(book);
+    showSnackbar(message);
+  };
+
+  const handleRemoveFromReadingList = (book: Book) => {
+    const message = removeFromReadingList(book);
     showSnackbar(message);
   };
 
@@ -25,7 +31,10 @@ const App: React.FC = () => {
         <BookSearch addToReadingList={handleAddToReadingList} />
         {readingList.length > 0 && (
           <Box sx={{ mt: 4 }}>
-            <ReadingList readingList={readingList} />
+            <ReadingList
+              readingList={readingList}
+              removeFromReadingList={handleRemoveFromReadingList}
+            />
           </Box>
         )}
       </Box>

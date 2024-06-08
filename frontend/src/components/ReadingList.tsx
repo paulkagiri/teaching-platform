@@ -1,15 +1,27 @@
 import React from "react";
-import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
+import {
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  CardActions,
+  Button,
+} from "@mui/material";
 import { Book } from "../types";
 
 interface ReadingListProps {
   readingList: Book[];
+  removeFromReadingList: (book: Book) => void;
 }
 
 /**
  * Component to display the reading list.
  */
-const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
+const ReadingList: React.FC<ReadingListProps> = ({
+  readingList,
+  removeFromReadingList,
+}) => {
   return (
     <div>
       <Typography variant="h4" gutterBottom>
@@ -34,6 +46,15 @@ const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
                   {book.author}
                 </Typography>
               </CardContent>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="secondary"
+                  onClick={() => removeFromReadingList(book)}
+                >
+                  Remove
+                </Button>
+              </CardActions>
             </Card>
           </Grid>
         ))}
