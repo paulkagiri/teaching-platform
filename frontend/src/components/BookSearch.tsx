@@ -20,6 +20,7 @@ interface BookSearchProps {
  */
 const BookSearch: React.FC<BookSearchProps> = ({ addToReadingList }) => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [inputValue, setInputValue] = useState<string>("");
   const { loading, error, data } = useQuery(GET_BOOKS);
 
   if (loading) return <p>Loading...</p>;
@@ -31,6 +32,7 @@ const BookSearch: React.FC<BookSearchProps> = ({ addToReadingList }) => {
     if (value) {
       addToReadingList(value);
       setSelectedBook(null); // Clear the selection
+      setInputValue(""); // Clear the input value
     }
   };
 
@@ -53,6 +55,8 @@ const BookSearch: React.FC<BookSearchProps> = ({ addToReadingList }) => {
         )}
         onChange={handleSelect}
         value={selectedBook}
+        inputValue={inputValue} // Bind inputValue state
+        onInputChange={(event, newInputValue) => setInputValue(newInputValue)} // Update inputValue state
       />
     </div>
   );
