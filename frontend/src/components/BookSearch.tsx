@@ -45,11 +45,11 @@ const BookSearch: React.FC<BookSearchProps> = ({
   };
 
   return (
-    <div>
+    <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
       <Autocomplete
         options={books}
         getOptionLabel={(option) => `${option.title} by ${option.author}`}
-        style={{ width: 300, marginBottom: 20 }}
+        style={{ width: "100%", maxWidth: 600 }}
         renderOption={(props, option) => (
           <ListItem {...props} key={`${option.title}-${option.author}`}>
             <ListItemAvatar>
@@ -72,14 +72,19 @@ const BookSearch: React.FC<BookSearchProps> = ({
           </ListItem>
         )}
         renderInput={(params) => (
-          <TextField {...params} label="Search Books" variant="outlined" />
+          <TextField
+            {...params}
+            label="Search Books"
+            variant="outlined"
+            fullWidth
+          />
         )}
         onChange={handleSelect}
         value={selectedBook}
         inputValue={inputValue} // Bind inputValue state
         onInputChange={(event, newInputValue) => setInputValue(newInputValue)} // Update inputValue state
       />
-    </div>
+    </Box>
   );
 };
 
