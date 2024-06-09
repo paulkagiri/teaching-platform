@@ -36,14 +36,12 @@ const App: React.FC = () => {
           addToReadingList={handleAddToReadingList}
           isBookInReadingList={isBookInReadingList}
         />
-        {readingList.length > 0 && (
-          <Box sx={{ mt: 4 }}>
-            <ReadingList
-              readingList={readingList}
-              removeFromReadingList={handleRemoveFromReadingList}
-            />
-          </Box>
-        )}
+        <Box sx={{ mt: 4 }}>
+          <ReadingList
+            readingList={readingList}
+            removeFromReadingList={handleRemoveFromReadingList}
+          />
+        </Box>
       </Box>
       <Snackbar
         open={snackbarOpen}
